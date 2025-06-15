@@ -1,58 +1,147 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Mi Página Personal</title>
+  <meta charset="UTF-8">
+  <title>TECNOLOGY S.A.S</title>
+  <link rel="stylesheet" href="estilo.css"> <!--  <head> -->
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #000;
+      color: white;
+    }
+
+    img.fondo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .mi-boton {
+      background-color:red;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    form {
+      margin-top: 30px;
+    }
+  </style>
 </head>
 <body>
-    <h1 style="color: white;">TECNOLOGY S.A.S</h1>
-    <img src="LOGO.jpg"
-    alt="HOLA"
-width="100%"
-height="100%"
-style="position: fixed; top: 0; left: 0; z-index: -1;">
-    <h2 style="color: white;">Reparacion y venta de equipos</h2>
 
+  <img src="LOGO.jpg" alt="Fondo" class="fondo">
 
-    <h2 style="color: white;">Estos son los numeros de contacto y direcciones donde puedes hacer tus pedidos o puedes llegar al lugar fisico </h2>
-    <ul>
-        <li>Calle 56 E # 47 D 16<a </a></li>
-        <li><a </a></li>
-        <li><a </a></li>
-    </ul>
+  <h1>TECNOLOGY S.A.S</h1>
+  <hr>
+  <h2>Reparación y venta de equipos</h2>
+  
+  <h2>Contáctame</h2>
+  <p>📞 3177864446</p>
 
-    <h2 style="color: white;">Referencias de dispositivos disponibles</h2>
-    <img src="15.png" alt="Iphone15 Pro Max">
-<h1 style="text-align: left;">Título centrado</h1>
-<h2>Iphone 15 Pro Max<h2/>
-    <h2>Contáctame</h2>
-<h1 style="color: white;">Formulario de Registro</h1>
+  <a href="imagenes.html" class="mi-boton"> atras</a>
 
-  <form action="https://formspree.io/f/xeokkayj" method="POST">
-    <!-- Nombre -->
-    <label for="nombre">Nombre:</label><br>
-    <input type="text" id="nombre" name="nombre" required><br><br>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro - Technology S.A.S</title>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <style>
+    body {
+      background: #111;
+      color: white;
+      text-align: center;
+      font-family: Arial;
+      padding: 20px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
 
-    <!-- Apellido -->
-    <label for="apellido">Apellido:</label><br>
-    <input type="text" id="apellido" name="apellido" required><br><br>
+  <h1>Registro de Usuario</h1>
 
-    <!-- Correo electrónico -->
-    <label for="correo">Correo electrónico:</label><br>
-    <input type="email" id="correo" name="correo" required><br><br>
+  <form id="registro-form">
+    <input type="text" id="nombre" placeholder="Nombre completo" required><br>
+    <input type="email" id="email" placeholder="Correo electrónico" required><br>
+    <input type="password" id="password" placeholder="Contraseña" required><br>
+    <button type="submit">Crear cuenta</button>
 
-    <!-- Contraseña -->
-    <label for="contrasena">Contraseña:</label><br>
-    <input type="password" id="contrasena" name="contrasena" required><br><br>
+  </form>
 
-    <!-- Botón de envío -->
-    <input type="submit" value="Enviar">
-<input type="hidden" name="_redirect" value="https://Pagina de datos/gracias.html">
+  <h2>¿Ya tienes cuenta?</h2>
+  <form id="login-form">
+    <input type="email" id="login-email" placeholder="Correo electrónico" required><br>
+    <input type="password" id="login-password" placeholder="Contraseña" required><br>
+    <button type="submit">Iniciar sesión</button>
+  </form>
 
-    <form>
-       
+  <script>
+    // Tu configuración de Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyDolCr9KVWXg4fi8A4HZ69i14W-KK_LRdE",
+      authDomain: "registro-de-usuario-f2b15.firebaseapp.com",
+      projectId: "registro-de-usuario-f2b15",
+      storageBucket: "registro-de-usuario-f2b15.firebasestorage.app",
+      messagingSenderId: "956801940364",
+      appId: "1:956801940364:web:bc681bb5df4e68163834a9"
+    };
 
-       
-    </form>
+    // Inicializar Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    const auth = firebase.auth();
+
+    // Registro de usuarios
+    document.getElementById("registro-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          alert("Cuenta creada correctamente.");
+          window.location.href = "imagenes.html"; // Redirige al panel
+        })
+        .catch(error => {
+          alert("Error: " + error.message);
+        });
+    });
+
+    // Inicio de sesión
+    document.getElementById("login-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
+      auth.signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          alert("Inicio de sesión exitoso.");
+          window.location.href = "imagenes.html"; // Redirige al panel
+        })
+        .catch(error => {
+          alert("Error: " + error.message);
+        });
+    });
+  </script>
+
 </body>
+</html>
+
+  </body>
 </html>
